@@ -1,11 +1,13 @@
 require('dotenv').config();
-const express = require('express');
-const app = express();
+import { json } from "express";
+import cors from "cors";
+import { json as _json } from "body-parser";
 const PORT = process.env.PORT;
 
 // Middleware to parse JSON
-app.use(express.json());
-
+app.use(json());
+app.use(cors());
+app.use(_json());
 // Routes
 // const userRoutes = require('./routes/userRoutes');
 // app.use('/users', userRoutes);
