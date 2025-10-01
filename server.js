@@ -1,22 +1,29 @@
-require('dotenv').config();
-import { json } from "express";
+import express from "express";
 import cors from "cors";
-import { json as _json } from "body-parser";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import db from "./models/index.js";
+import applicantRoutes from "./routes/applicants.route.js"
+
+dotenv.config();
+
+const app = express();
 const PORT = process.env.PORT;
 
-// Middleware to parse JSON
-app.use(json());
+// Middleware
 app.use(cors());
-app.use(_json());
+app.use(bodyParser.json());
+
+// Sync all models
+await db.sequelize.sync({ alter: true }); 
+
 // Routes
-// const userRoutes = require('./routes/userRoutes');
-// app.use('/users', userRoutes);
+app.use("/api/applicants", applicantRoutes);
 
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to My Node.js App');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+try {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port http://localhost:${PORT}`);
+  });
+} catch (err) {
+  console.error("❌ Error starting server:", err);
+  process.exit(1);}

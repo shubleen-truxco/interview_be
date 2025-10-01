@@ -1,11 +1,11 @@
 import sequelize from "../datasource.js";
 import { DataTypes } from "sequelize";
-
-import ApplicantModel from "./Applicant.js";
-import EducationalQualificationModel from "./EducationalQualification.js";
-import FamilyBackgroundModel from "./FamilyBackground.js";
-import ProfessionalDetailsModel from "./ProfessionalDetails.js";
-import AdditionalQuestionnaireModel from "./AdditionalQuestionnaire.js";
+import ApplicantModel from "./Applicant.model.js";
+import EducationalQualificationModel from "./Education.model.js";
+import FamilyBackgroundModel from "./Family.model.js";
+import ProfessionalDetailsModel from "./Professional.model.js";
+import AdditionalQuestionnaireModel from "./Questions.model.js";
+import OrganizationContactModel from "./OrganizationContact.model.js";
 
 const db = {};
 db.sequelize = sequelize;
@@ -17,6 +17,7 @@ db.EducationalQualification = EducationalQualificationModel(sequelize, DataTypes
 db.FamilyBackground = FamilyBackgroundModel(sequelize, DataTypes);
 db.ProfessionalDetails = ProfessionalDetailsModel(sequelize, DataTypes);
 db.AdditionalQuestionnaire = AdditionalQuestionnaireModel(sequelize, DataTypes);
+db.OrganizationContact = OrganizationContactModel(sequelize, DataTypes);
 
 // Associations
 db.Applicant.hasMany(db.EducationalQualification, { foreignKey: "applicantId", onDelete: "CASCADE" });
@@ -30,5 +31,9 @@ db.ProfessionalDetails.belongsTo(db.Applicant, { foreignKey: "applicantId" });
 
 db.Applicant.hasMany(db.AdditionalQuestionnaire, { foreignKey: "applicantId", onDelete: "CASCADE" });
 db.AdditionalQuestionnaire.belongsTo(db.Applicant, { foreignKey: "applicantId" });
+
+// New association
+db.ProfessionalDetails.hasMany(db.OrganizationContact, { foreignKey: "professionalDetailsId", onDelete: "CASCADE" });
+db.OrganizationContact.belongsTo(db.ProfessionalDetails, { foreignKey: "professionalDetailsId" });
 
 export default db;
