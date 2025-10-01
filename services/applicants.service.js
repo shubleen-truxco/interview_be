@@ -1,8 +1,13 @@
 import db from "../models/index.js";
 
-export const createApplicant = async (data) => {
+export const createApplicant = async (data, file) => {
   return db.sequelize.transaction(async (t) => {
-    // Create Applicant
+
+    if (file) {
+      data.applicant.photo = file.path; 
+    }
+
+
     const applicant = await db.Applicant.create(data.applicant, { transaction: t });
 
     // Educational Qualifications
@@ -56,47 +61,37 @@ export const createApplicant = async (data) => {
       }
     }
 
-   if (data.additionalQuestions) {
-  console.log('Additional Questions Data:', data.additionalQuestions);
-  
-  const q = data.additionalQuestions;
-  const normalizedQ = {
-    ownHouse: q.ownHouse || null,
-    accommodationType: q.accommodationType || null,
-    areaLocationAddress: q.areaLocationAddress || null,
-    knowDriving: q.knowDriving || null,
-    haveLicense: q.haveLicense || null,
-    ownConveyance: q.ownConveyance || null,
-    computerLiterate: q.computerLiterate || null,
-    computerSkillsDetails: q.computerSkillsDetails || null,
-    jobProfile: q.jobProfile || null,
-    reasonForChange: q.reasonForChange || null,
-    strengthsWeaknesses: q.strengthsWeaknesses || null,
-    whyJoinUs: q.whyJoinUs || null,
-    whyHireYou: q.whyHireYou || null,
-    noticePeriod: q.noticePeriod || null,
-    currentCTC: q.currentCTC || null,
-    expectedCTC: q.expectedCTC || null,
-    applicantId: applicant.id,
-  };
-
-  console.log('Normalized Q:', normalizedQ);
-
-  try {
-    const result = await db.AdditionalQuestionnaire.create(normalizedQ, { transaction: t });
-    console.log('Additional Questions created:', result);
-  } catch (error) {
-    console.error('Error creating Additional Questions:', error);
-    throw error;
-  }
-} else {
-  console.log('No additional questions data found');
-}
-
+    // Additional Questionnaire
+    if (data.additionalQuestions) {
+      const q = data.additionalQuestions;
+      await db.AdditionalQuestionnaire.create(
+        {
+          ownHouse: q.ownHouse || null,
+          accommodationType: q.accommodationType || null,
+          areaLocationAddress: q.areaLocationAddress || null,
+          knowDriving: q.knowDriving || null,
+          haveLicense: q.haveLicense || null,
+          ownConveyance: q.ownConveyance || null,
+          computerLiterate: q.computerLiterate || null,
+          computerSkillsDetails: q.computerSkillsDetails || null,
+          jobProfile: q.jobProfile || null,
+          reasonForChange: q.reasonForChange || null,
+          strengthsWeaknesses: q.strengthsWeaknesses || null,
+          whyJoinUs: q.whyJoinUs || null,
+          whyHireYou: q.whyHireYou || null,
+          noticePeriod: q.noticePeriod || null,
+          currentCTC: q.currentCTC || null,
+          expectedCTC: q.expectedCTC || null,
+          applicantId: applicant.id,
+        },
+        { transaction: t }
+      );
+    }
 
     return applicant;
   });
 };
+
 
 export const getApplicants = async () => {
   return db.Applicant.findAll({

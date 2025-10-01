@@ -16,3 +16,5 @@ Thumbs.db
 # Optional: Build output
 dist/
 build/
+uploads/photos/*
+!uploads/photos/.gitkeep
