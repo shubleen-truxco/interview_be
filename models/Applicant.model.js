@@ -4,7 +4,7 @@ export default (sequelize, DataTypes) => {
     email: { type: DataTypes.STRING, allowNull: true, unique: true },
     address: { type: DataTypes.STRING, allowNull: true },
     phone: { type: DataTypes.STRING, allowNull: true },
-    dateOfBirth: { type: DataTypes.DATE, allowNull: true },
+    dateOfBirth: { type: DataTypes.DATEONLY, allowNull: true },
     positionApplied: { type: DataTypes.STRING, allowNull: true },
     nationality: { type: DataTypes.STRING, allowNull: true },
     height: {

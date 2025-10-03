@@ -6,6 +6,12 @@ export const createApplicant = async (data, file) => {
     if (file) {
       data.applicant.photo = file.path; 
     }
+    
+    if (data.applicant?.dateOfBirth) {
+      data.applicant.dateOfBirth = new Date(data.applicant.dateOfBirth)
+        .toISOString()
+        .split("T")[0];
+    }
 
 
     const applicant = await db.Applicant.create(data.applicant, { transaction: t });
