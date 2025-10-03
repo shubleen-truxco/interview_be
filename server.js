@@ -4,7 +4,8 @@ import path from "path";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import db from "./models/index.js";
-import applicantRoutes from "./routes/applicants.route.js"
+import applicantRoutes from "./routes/applicants.route.js";
+import multer from "multer";
 import { fileURLToPath } from "url";
 
 dotenv.config();

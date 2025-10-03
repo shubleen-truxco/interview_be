@@ -3,17 +3,27 @@ import STATUS_CODES from "../utils/statusCodes.js";
 import { successResponse, errorResponse } from "../utils/response.js";
 
 export const createApplicant = async (req, res) => {
-    try {
-        let data = req.body.data ? JSON.parse(req.body.data) : req.body;
-        const file = req.file;
+  try {
+    const data = req.body.data ? JSON.parse(req.body.data) : req.body;
+    const file = req.file;
 
-        const applicant = await applicantService.createApplicant(data, file);
+    const applicant = await applicantService.createApplicant(data, file);
 
-        return successResponse(res, STATUS_CODES.CREATED, "Applicant created successfully", applicant);
-    } catch (error) {
-        console.error("Error creating applicant:", error);
-        return errorResponse(res, STATUS_CODES.INTERNAL_SERVER_ERROR, "Failed to create applicant", error.message);
-    }
+    return successResponse(
+      res,
+      STATUS_CODES.CREATED,
+      "Applicant created successfully",
+      applicant
+    );
+  } catch (error) {
+    console.error("Error creating applicant:", error);
+    return errorResponse(
+      res,
+      STATUS_CODES.INTERNAL_SERVER_ERROR,
+      "Failed to create applicant",
+      error.message
+    );
+  }
 };
 
 export const getAllApplicants = async (req, res) => {
