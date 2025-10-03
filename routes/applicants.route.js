@@ -17,6 +17,6 @@ router.post("/",  upload.single('photo'), createApplicant);
 router.get("/", getAllApplicants);
 router.get("/id", getApplicantById);
 router.get("/name", getApplicantByName);
-router.delete("/id/:id", deleteApplicant);
+router.delete("/id", deleteApplicant);
 
 export default router;

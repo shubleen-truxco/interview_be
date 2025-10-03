@@ -60,7 +60,7 @@ export const getApplicantByName = async (req, res) => {
 
 export const deleteApplicant = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = req.query.id;
         const deleted = await applicantService.deleteApplicant(id);
 
         if (!deleted) {
