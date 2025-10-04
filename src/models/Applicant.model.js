@@ -1,7 +1,7 @@
 export default (sequelize, DataTypes) => {
   const Applicant = sequelize.define("Applicant", {
     fullName: { type: DataTypes.STRING, allowNull: true },
-    email: { type: DataTypes.STRING, allowNull: true, unique: true },
+    email: { type: DataTypes.STRING, allowNull: true, unique: false },
     address: { type: DataTypes.STRING, allowNull: true },
     phone: { type: DataTypes.STRING, allowNull: true },
     dateOfBirth: { type: DataTypes.DATEONLY, allowNull: true },

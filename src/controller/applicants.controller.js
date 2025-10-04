@@ -5,9 +5,14 @@ import { successResponse, errorResponse } from "../utils/response.js";
 export const createApplicant = async (req, res) => {
   try {
     const data = req.body.data ? JSON.parse(req.body.data) : req.body;
-    const file = req.file;
 
-    const applicant = await applicantService.createApplicant(data, file);
+    if (!data.applicant) data.applicant = {};
+
+    if (req.file) {
+      data.applicant.photo = `uploads/photos/${req.file.filename}`;
+    }
+
+    const applicant = await applicantService.createApplicant(data);
 
     return successResponse(
       res,
@@ -25,7 +30,6 @@ export const createApplicant = async (req, res) => {
     );
   }
 };
-
 export const getAllApplicants = async (req, res) => {
     try {
         const applicants = await applicantService.getApplicants();
