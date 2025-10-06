@@ -3,20 +3,16 @@ import path from "path";
 import fs from "fs";
 import { fileURLToPath } from "url";
 
-// Get __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Define upload folder outside middleware
 const uploadDir = path.join(__dirname, "..", "uploads", "photos");
 
-// Ensure folder exists
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
   console.log("Upload folder created at:", uploadDir);
 }
 
-// Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir);
@@ -27,18 +23,22 @@ const storage = multer.diskStorage({
   },
 });
 
-// File filter for images only
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif/;
-  const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedTypes.test(file.mimetype);
+  const allowedExt = /jpeg|jpg|png|webp/;
 
-  if (mimetype && extname) {
+  const extname = allowedExt.test(path.extname(file.originalname).toLowerCase());
+
+  const allowedMimes = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/x-png"];
+  const mimetype = allowedMimes.includes(file.mimetype.toLowerCase());
+
+  if (extname && mimetype) {
     cb(null, true);
   } else {
-    cb(new Error("Only image files are allowed (jpeg, jpg, png, gif)"));
+    console.log("Rejected file:", file.originalname, file.mimetype);
+    cb(new Error("Only JPG, PNG, and WEBP formats are allowed."));
   }
 };
+
 
 // Create multer instance
 const upload = multer({

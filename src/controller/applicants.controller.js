@@ -30,6 +30,7 @@ export const createApplicant = async (req, res) => {
     );
   }
 };
+
 export const getAllApplicants = async (req, res) => {
     try {
         const applicants = await applicantService.getApplicants();
