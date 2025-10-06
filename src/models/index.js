@@ -6,12 +6,14 @@ import FamilyBackgroundModel from "./Family.model.js";
 import ProfessionalDetailsModel from "./Professional.model.js";
 import AdditionalQuestionnaireModel from "./Questions.model.js";
 import OrganizationContactModel from "./OrganizationContact.model.js";
+import AdminModel from "./Admin.model.js";
 
 const db = {};
 db.sequelize = sequelize;
 db.Sequelize = sequelize.Sequelize;
 
 // Models
+db.Admin =AdminModel(sequelize,DataTypes);
 db.Applicant = ApplicantModel(sequelize, DataTypes);
 db.EducationalQualification = EducationalQualificationModel(sequelize, DataTypes);
 db.FamilyBackground = FamilyBackgroundModel(sequelize, DataTypes);

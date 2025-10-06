@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import db from "./models/index.js";
 import applicantRoutes from "./routes/applicants.route.js";
+import authRoute from "./routes/auth.route.js";
 import multer from "multer";
 import { fileURLToPath } from "url";
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+app.use("/auth",authRoute)
 app.use("/api/applicants", applicantRoutes);
 
 // Sync all models
