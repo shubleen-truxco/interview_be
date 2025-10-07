@@ -25,7 +25,7 @@ export default (sequelize, DataTypes) => {
     },
     nativePlace: { type: DataTypes.STRING, allowNull: true },
     photo: {
-        type: DataTypes.STRING, // file path or URL
+        type: DataTypes.STRING,
         allowNull: true,
         validate: {
           isValidFormat(value) {

@@ -13,19 +13,19 @@ export default (sequelize, DataTypes) => {
       yearOfPassing: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        // validate: {
-        //   isInt: true,
-        //   min: 1900,
-        //   max: new Date().getFullYear(),
-        // },
+        validate: {
+          isInt: true,
+          min: 1900,
+          max: new Date().getFullYear(),
+        },
       },
       percentage: {
         type: DataTypes.DECIMAL(5, 2), 
         allowNull: true,
-        // validate: {
-        //   min: 0,
-        //   max: 100,
-        // },
+        validate: {
+          min: 0,
+          max: 100,
+        },
       },
       isDeleted: {
         type: DataTypes.BOOLEAN,

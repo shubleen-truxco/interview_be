@@ -2,7 +2,6 @@ import * as adminService from "../services/auth.service.js";
 import { successResponse, errorResponse } from "../utils/response.js";
 import  STATUS_CODES  from "../utils/statusCodes.js";
 
-// Admin registration (optional)
 export const registerAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -24,7 +23,6 @@ export const registerAdmin = async (req, res) => {
   }
 };
 
-// Admin login
 export const loginAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;

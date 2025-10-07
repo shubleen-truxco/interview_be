@@ -8,11 +8,11 @@ import {
   deleteApplicant
 } from "../controller/applicants.controller.js";
 import { verifyToken } from "../middleware/auth.middleware.js";
-// import {validateCreateApplicant} from "../middleware/validation.js"
+import {validateCreateApplicant} from "../middleware/validation.js"
 
 const router = express.Router();
 
-router.post("/", upload.single('photo'),  createApplicant); //validateCreateApplicant,
+router.post("/", upload.single('photo'),validateCreateApplicant,  createApplicant); //,
 router.get("/", verifyToken, getAllApplicants);
 router.get("/id", getApplicantById);
 router.get("/name", getApplicantByName);

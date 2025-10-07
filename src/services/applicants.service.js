@@ -98,7 +98,6 @@ export const createApplicant = async (data, file) => {
   });
 };
 
-
 export const getApplicants = async () => {
   return db.Applicant.findAll({
     include: [
@@ -109,8 +108,6 @@ export const getApplicants = async () => {
     ],
   });
 };
-
-
 
 export const getApplicantById = async (id) => {
   return db.Applicant.findOne({

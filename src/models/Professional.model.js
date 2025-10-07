@@ -13,11 +13,11 @@ export default (sequelize, DataTypes) => {
       startYear: {
         type: DataTypes.INTEGER,
         allowNull: true,
-        // validate: {
-        //   isInt: true,
-        //   min: 1900,
-        //   max: new Date().getFullYear(),
-        // },
+        validate: {
+          isInt: true,
+          min: 1900,
+          max: new Date().getFullYear(),
+        },
       },
       endYear: {
         type: DataTypes.INTEGER,
@@ -33,7 +33,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      timestamps: true, // createdAt, updatedAt
+      timestamps: true, 
     }
   );
 

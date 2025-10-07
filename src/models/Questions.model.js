@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
       },
       accommodationType: {
         type: DataTypes.STRING,
-        allowNull: true, // only required if ownHouse === "no"
+        allowNull: true, 
       },
       areaLocationAddress: {
         type: DataTypes.STRING,
@@ -72,7 +72,7 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      timestamps: true, // createdAt & updatedAt
+      timestamps: true, 
       paranoid: false,
     }
   );
